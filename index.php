@@ -459,10 +459,10 @@
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuItems" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuItems">
-                            <form method="post" action="">
+                            <form id="deleteForm" class="DelForm" method="post" action="">
                             <input type="hidden" name="id" value='. $row['id'] .'>
                             <li>
-                                <button class="dropdown-item" name="delete" type="submit" value="Удалить">Удалить</button>
+                                <button class="dropdown-item DelButton" name="delete" id="deleteButton" type="submit" value="Удалить">Удалить</button>
                             </li>
                             <li>
                                 <button class="dropdown-item" name="Edit" id="showEditBtn" type="submit">Редактировать</button>
@@ -762,6 +762,32 @@
         editPostButton.addEventListener("click", function(event) {
     console.log("Клик на кнопке EditPost");
     // ... ваша проверка формы ...
+        });
+
+        editPostButton.addEventListener("click", function(event) {
+            var editForm = document.getElementById("EditForm");
+            var atLeastOneFieldFilled = false;
+
+            var inputs = editForm.querySelectorAll("input[type=text], input[type=tel], textarea");
+            inputs.forEach(function(input) {
+                if (input.value.trim() !== "") {
+                    atLeastOneFieldFilled = true;
+                }
+            });
+
+            if (!atLeastOneFieldFilled) {
+                alert("Пожалуйста, заполните хотя бы одно поле перед отправкой формы.");
+                event.preventDefault(); // Отменяет отправку формы
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var editPostButton = document.getElementById("EditPostButton");  
+
+        editPostButton.addEventListener("click", function(event) {
+    console.log("Клик на кнопке EditPost");
+    // ... ваша проверка формы ...
 });
 
         editPostButton.addEventListener("click", function(event) {
@@ -800,6 +826,30 @@
                     }
                 });
             });
+        });
+
+        // Получаем все элементы с классом "DelForm" 
+        var deleteForms = document.querySelectorAll('.DelForm');
+
+        // Добавляем обработчик события для каждой формы
+        deleteForms.forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+
+                var button = event.submitter; // Получаем кнопку, которая вызвала отправку формы
+                if (button && button.classList.contains('DelButton')) {
+
+                    var confirmed = confirm('Уверены что хотите удалить?');
+                    if (confirmed)
+                    { 
+                        event.currentTarget.submit();
+                    }
+                    else 
+                    {  
+                        // Если пользователь нажал "Отмена" (нет), ничего не делаем 
+                    event.preventDefault();  
+                    }  
+                }
+            }); 
         });
 
 

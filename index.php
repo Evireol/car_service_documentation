@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Записи Автомастерской</title>
+    <link rel="icon" href="free-icon-car-wheel-5266272.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <style>
         a {
@@ -155,7 +156,11 @@
                         </div>
                         <div class="form-group p-1">
                             <label for="exampleInputmarka">Марка</label>
-                            <input type="text" class="form-control" id="exampleInputmarka" name="marka" placeholder="Введите Модель" data-next-input="exampleInputVIN">
+                            <input type="text" class="form-control" id="exampleInputmarka" name="marka" placeholder="Введите Модель" data-next-input="exampleInputmileage">
+                        </div>
+                        <div class="form-group p-1">
+                            <label for="exampleInputmileage">Пробег</label>
+                            <input type="text" class="form-control" id="exampleInputmileage" name="mileage" placeholder="Введите Пробег" data-next-input="exampleInputVIN">
                         </div>
                         <div class="form-group p-1">
                             <label for="exampleInputVIN">VIN</label>
@@ -203,7 +208,11 @@
                         </div>
                         <div class="form-group p-1">
                             <label for="exampleInputmarka2">Марка</label>
-                            <input type="text" class="form-control" id="exampleInputmarka2" name="marka" placeholder="Введите Модель" data-next-input="exampleInputVIN2">
+                            <input type="text" class="form-control" id="exampleInputmarka2" name="marka" placeholder="Введите Модель" data-next-input="exampleInputmileage2">
+                        </div>
+                        <div class="form-group p-1">
+                            <label for="exampleInputmileage2">Пробег</label>
+                            <input type="text" class="form-control" id="exampleInputmileage2" name="mileage" placeholder="Введите Пробег" data-next-input="exampleInputVIN2">
                         </div>
                         <div class="form-group p-1">
                             <label for="exampleInputVIN2">VIN</label>
@@ -254,12 +263,13 @@
 
             $Gos =''; 
             $marka = '';
+            $mileage = '';
             $VIN = '';
             $Name = '';
             $Patronymic = '';
             $Surname = '';
     
-            $groups = select_and_sorting_groups($Gos, $marka, $VIN, $Name, $Patronymic, $Surname, $id);
+            $groups = select_and_sorting_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $id);
         
 
     echo '
@@ -284,6 +294,7 @@
                             $gosEdit = $rezult['result_gos'];
                             $descriptionEdit = $rezult['result_description'];
                             $PhoneEdit = $rezult['result_Phone'];
+                            $mileageEdit = $rezult['result_mileage'];
                             $VINEdit = $rezult['result_VIN'];
                             $markaEdit = $rezult['result_marka'];
 
@@ -307,7 +318,11 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputmarka2">Марка</label>
-                            <input type="text" class="form-control" id="exampleInputmarka2" name="markaEdit" placeholder="Введите Модель" value="'. $markaEdit .'" data-next-input="exampleInputVIN2">
+                            <input type="text" class="form-control" id="exampleInputmarka2" name="markaEdit" placeholder="Введите Модель" value="'. $markaEdit .'" data-next-input="exampleInputmileage2">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputmileage2">Пробег</label>
+                            <input type="text" class="form-control" id="exampleInputmileage2" name="mileageEdit" placeholder="Введите Пробег" value="'. $mileageEdit .'" data-next-input="exampleInputVIN2">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputVIN2">VIN</label>
@@ -352,12 +367,13 @@
         $Name = isset($_POST["Name"]) ? $_POST["Name"] : "";
         $Patronymic = isset($_POST["Patronymic"]) ? $_POST["Patronymic"] : "";
         $marka = isset($_POST["marka"]) ? $_POST["marka"] : "";
+        $mileage = isset($_POST["mileage"]) ? $_POST["mileage"] : "";
         $VIN = isset($_POST["VIN"]) ? $_POST["VIN"] : "";
         $id = '';
 
         $conn->close();
 
-        $groups = select_and_sorting_groups($Gos, $marka, $VIN, $Name, $Patronymic, $Surname, $id);
+        $groups = select_and_sorting_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $id);
         display_tasks($groups);
     }
 
@@ -374,12 +390,13 @@
         $Patronymic = isset($_POST["Patronymic"]) ? $_POST["Patronymic"] : "";
         $Phone = isset($_POST["Phone"]) ? $_POST["Phone"] : "";
         $marka = isset($_POST["marka"]) ? $_POST["marka"] : "";
+        $mileage = isset($_POST["mileage"]) ? $_POST["mileage"] : "";
         $VIN = isset($_POST["VIN"]) ? $_POST["VIN"] : "";
         $Description = isset($_POST["Description"]) ? $_POST["Description"] : "";
 
         $conn->close();
 
-        Add_groups($Gos, $marka, $VIN,$Description, $Name, $Patronymic,$Phone, $Surname);
+        Add_groups($Gos, $marka, $mileage, $VIN,$Description, $Name, $Patronymic,$Phone, $Surname);
 
         // $MessageModal = true;
     }
@@ -391,6 +408,7 @@
         $Name = isset($_POST["NameEdit"]) ? $_POST["NameEdit"] : "";
         $Patronymic = isset($_POST["PatronymicEdit"]) ? $_POST["PatronymicEdit"] : "";
         $marka = isset($_POST["markaEdit"]) ? $_POST["markaEdit"] : "";
+        $mileage = isset($_POST["mileageEdit"]) ? $_POST["mileageEdit"] : "";
         $VIN = isset($_POST["VINEdit"]) ? $_POST["VINEdit"] : "";
         $Phone = isset($_POST["PhoneEdit"]) ? $_POST["PhoneEdit"] : "";
         $Description = isset($_POST["DescriptionEdit"]) ? $_POST["DescriptionEdit"] : "";
@@ -404,6 +422,7 @@
             empty($Name) &&
             empty($Patronymic) &&
             empty($marka) &&
+            empty($mileage) &&
             empty($VIN) &&
             empty($Phone) &&
             empty($Description)
@@ -411,7 +430,7 @@
             // echo '<script>alert("Пожалуйста, заполните хотя бы одно поле перед отправкой формы.");</script>';
 
         } else {
-        Edit_groups($Gos, $marka, $VIN, $Name, $Patronymic, $Surname, $Phone, $Description, $id);
+        Edit_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $Phone, $Description, $id);
         }
         
     }
@@ -427,11 +446,10 @@
             $gos = $rezult['result_gos'];
             $description = $rezult['result_description'];
             $Phone = $rezult['result_Phone'];
+            $mileage = $rezult['result_mileage'];
             $VIN = $rezult['result_VIN'];
             $marka = $rezult['result_marka'];
             $lead_time = $rezult['result_lead_time'];
-
-
 
             echo
 
@@ -451,7 +469,6 @@
                             </div>
                         </div>
                     </div>
-            
 
                 <div class="col-6">
                     <div class="row justify-content-end">
@@ -459,10 +476,10 @@
                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuItems" data-bs-toggle="dropdown" aria-expanded="false">
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuItems">
-                            <form method="post" action="">
+                            <form id="deleteForm" class="DelForm" method="post" action="">
                             <input type="hidden" name="id" value='. $row['id'] .'>
                             <li>
-                                <button class="dropdown-item" name="delete" type="submit" value="Удалить">Удалить</button>
+                                <button class="dropdown-item DelButton" name="delete" id="deleteButton" type="submit" value="Удалить">Удалить</button>
                             </li>
                             <li>
                                 <button class="dropdown-item" name="Edit" id="showEditBtn" type="submit">Редактировать</button>
@@ -541,12 +558,25 @@
                     <div class="col">
                         <div class="row justify-content-start">
                             <div class="col">
+                                Пробег:
+                            </div>
+                        </div>
+                        <div class="row justify-content-start mt-2">
+                            <div class="col">
+                                <span class="input-group-text" width="50">' . $mileage .' 
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row justify-content-start">
+                            <div class="col" style="white-space: nowrap;">
                                 Дата создания:
                             </div>
                         </div>
                         <div class="row justify-content-start mt-2">
                             <div class="col">
-                                <span class="input-group-text" width="50">' . $lead_time . '
+                                <span class="input-group-text">' . $lead_time . '&nbsp;&nbsp;&nbsp;&nbsp;
                                     
                                 </span>
                             </div>
@@ -576,11 +606,11 @@
     }
 
 
-    function select_and_sorting_groups($Gos, $marka, $VIN, $Name, $Patronymic, $Surname, $id)
+    function select_and_sorting_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $id)
     {
         $db = new mysqli('localhost', 'root', '', 'task tracker');
 
-        $result = mysqli_query($db, "SELECT * FROM `tasks` WHERE gos = '$Gos' or marka = '$marka' or VIN = '$VIN' or Name = '$Name' or Patronymic = '$Patronymic' or Surname = '$Surname' or id = '$id'");
+        $result = mysqli_query($db, "SELECT * FROM `tasks` WHERE gos = '$Gos' or marka = '$marka' or mileage = '$mileage' or VIN = '$VIN' or Name = '$Name' or Patronymic = '$Patronymic' or Surname = '$Surname' or id = '$id'");
 
         $groups = array();
         while ($row = mysqli_fetch_assoc($result)) {
@@ -592,12 +622,12 @@
         return $groups;
     }
 
-    function Add_groups($Gos, $marka, $VIN,$Description, $Name, $Patronymic,$Phone, $Surname)
+    function Add_groups($Gos, $marka, $mileage, $VIN,$Description, $Name, $Patronymic,$Phone, $Surname)
     {
         global $MessageModal, $MessageModalError;
         $db = new mysqli('localhost', 'root', '', 'task tracker');
 
-        $query ="INSERT INTO `tasks` (gos, marka, VIN, description, Name, Patronymic, Phone, Surname, lead_time) VALUES ('$Gos', '$marka', '$VIN','$Description', '$Name', '$Patronymic','$Phone', '$Surname', NOW())";
+        $query ="INSERT INTO `tasks` (gos, marka, mileage, VIN, description, Name, Patronymic, Phone, Surname, lead_time) VALUES ('$Gos', '$marka', '$mileage', '$VIN','$Description', '$Name', '$Patronymic','$Phone', '$Surname', NOW())";
 
         if (mysqli_query($db, $query)) {
             $MessageModal = true;
@@ -609,12 +639,12 @@
 
     }
 
-    function Edit_groups($Gos, $marka, $VIN, $Name, $Patronymic, $Surname, $Phone, $Description, $id)
+    function Edit_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $Phone, $Description, $id)
     {
         global $MessageModal, $MessageModalError;
         $db = new mysqli('localhost', 'root', '', 'task tracker');
 
-        $query = "UPDATE `tasks` SET gos='$Gos', marka = '$marka', VIN = '$VIN', Name = '$Name', Patronymic='$Patronymic', Surname = '$Surname', Phone = '$Phone', description = '$Description' WHERE id = '$id'";
+        $query = "UPDATE `tasks` SET gos='$Gos', marka = '$marka', mileage = '$mileage', VIN = '$VIN', Name = '$Name', Patronymic='$Patronymic', Surname = '$Surname', Phone = '$Phone', description = '$Description' WHERE id = '$id'";
 
         if (mysqli_query($db, $query)) {
             $MessageModal = true;
@@ -636,6 +666,7 @@
             'result_description' => '0',
             'result_marka' => '0',
             'result_lead_time' => '0',
+            'result_mileage' => '0',
             'result_VIN' => '0',
             'result_Phone' => '0'
         );
@@ -649,6 +680,7 @@
                 $result['result_description'] = $groups_row['description'];
                 $result['result_marka'] = $groups_row['marka'];
                 $result['result_lead_time'] = $groups_row['lead_time'];
+                $result['result_mileage'] = $groups_row['mileage'];
                 $result['result_VIN'] = $groups_row['VIN'];
                 $result['result_Phone'] = $groups_row['Phone'];
 
@@ -762,6 +794,32 @@
         editPostButton.addEventListener("click", function(event) {
     console.log("Клик на кнопке EditPost");
     // ... ваша проверка формы ...
+        });
+
+        editPostButton.addEventListener("click", function(event) {
+            var editForm = document.getElementById("EditForm");
+            var atLeastOneFieldFilled = false;
+
+            var inputs = editForm.querySelectorAll("input[type=text], input[type=tel], textarea");
+            inputs.forEach(function(input) {
+                if (input.value.trim() !== "") {
+                    atLeastOneFieldFilled = true;
+                }
+            });
+
+            if (!atLeastOneFieldFilled) {
+                alert("Пожалуйста, заполните хотя бы одно поле перед отправкой формы.");
+                event.preventDefault(); // Отменяет отправку формы
+            }
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        var editPostButton = document.getElementById("EditPostButton");  
+
+        editPostButton.addEventListener("click", function(event) {
+    console.log("Клик на кнопке EditPost");
+    // ... ваша проверка формы ...
 });
 
         editPostButton.addEventListener("click", function(event) {
@@ -800,6 +858,30 @@
                     }
                 });
             });
+        });
+
+        // Получаем все элементы с классом "DelForm" 
+        var deleteForms = document.querySelectorAll('.DelForm');
+
+        // Добавляем обработчик события для каждой формы
+        deleteForms.forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+
+                var button = event.submitter; // Получаем кнопку, которая вызвала отправку формы
+                if (button && button.classList.contains('DelButton')) {
+
+                    var confirmed = confirm('Уверены что хотите удалить?');
+                    if (confirmed)
+                    { 
+                        event.currentTarget.submit();
+                    }
+                    else 
+                    {  
+                        // Если пользователь нажал "Отмена" (нет), ничего не делаем 
+                    event.preventDefault();  
+                    }  
+                }
+            }); 
         });
 
 

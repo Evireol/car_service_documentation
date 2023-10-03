@@ -270,9 +270,7 @@
             $Surname = '';
     
             $groups = select_and_sorting_groups($Gos, $marka, $mileage, $VIN, $Name, $Patronymic, $Surname, $id);
-        
-
-    echo '
+    ?>
     <div class="modal z-index" style="display: block;" id="ModalEdit" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -283,7 +281,9 @@
                     </button>
                 </div>
                 <form method="post" name="EditForm" id="EditForm">
-                    <div class="modal-body">';
+                    <div class="modal-body">
+
+                    <?php
 
                         foreach ($groups as $row) {
                             $rezult = select_id_row($row['id'], $groups);
@@ -298,43 +298,44 @@
                             $VINEdit = $rezult['result_VIN'];
                             $markaEdit = $rezult['result_marka'];
 
-                        echo '<div class="form-group">
-                        <input type="hidden" name="idEdit" value='. $id .'>
-                            <label for="exampleInputGos2"> Гос. номер</label>
-                            <input type="text" class="form-control" id="exampleInputGos2" name="GosEdit" placeholder="Введите Гос. номер" value="'. $gosEdit .'" data-next-input="exampleInputSurname2">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputSurname2">Фамилия</label>
-                            <input type="text" class="form-control" id="exampleInputSurname2" name="SurnameEdit" placeholder="Введите Фамилию" value="'. $SurnameEdit .'" data-next-input="exampleInputFirstName2">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputFirstName2">Имя</label>
-                            <input type="text" class="form-control" id="exampleInputFirstName2" name="NameEdit" placeholder="Введите Имя" value="'. $NameEdit .'" data-next-input="exampleInputPatronymic2">
+                    ?>
 
+                        <div class="form-group">
+                        <input type="hidden" name="idEdit" value='. $id .'>
+                            <label for="exampleInputGosEdit"> Гос. номер</label>
+                            <input type="text" class="form-control" id="exampleInputGosEdit" name="GosEdit" placeholder="Введите Гос. номер" value="<?php echo $gosEdit ?>" data-next-input="exampleInputSurnameEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPatronymic2">Отчество</label>
-                            <input type="text" class="form-control" id="exampleInputPatronymic2" name="PatronymicEdit" placeholder="Введите Отчество" value="'. $PatronymicEdit .'" data-next-input="exampleInputmarka2">
+                            <label for="exampleInputSurnameEdit">Фамилия</label>
+                            <input type="text" class="form-control" id="exampleInputSurnameEdit" name="SurnameEdit" placeholder="Введите Фамилию" value="<?php echo $SurnameEdit ?>" data-next-input="exampleInputFirstNameEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputmarka2">Марка</label>
-                            <input type="text" class="form-control" id="exampleInputmarka2" name="markaEdit" placeholder="Введите Модель" value="'. $markaEdit .'" data-next-input="exampleInputmileage2">
+                            <label for="exampleInputFirstNameEdit">Имя</label>
+                            <input type="text" class="form-control" id="exampleInputFirstNameEdit" name="NameEdit" placeholder="Введите Имя" value="<?php echo $NameEdit ?>" data-next-input="exampleInputPatronymicEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputmileage2">Пробег</label>
-                            <input type="text" class="form-control" id="exampleInputmileage2" name="mileageEdit" placeholder="Введите Пробег" value="'. $mileageEdit .'" data-next-input="exampleInputVIN2">
+                            <label for="exampleInputPatronymicEdit">Отчество</label>
+                            <input type="text" class="form-control" id="exampleInputPatronymicEdit" name="PatronymicEdit" placeholder="Введите Отчество" value="<?php echo $PatronymicEdit ?>" data-next-input="exampleInputmarkaEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputVIN2">VIN</label>
-                            <input type="text" class="form-control" id="exampleInputVINedit" name="VINEdit" placeholder="Введите VIN" value="'. $VINEdit .'" maxlength="17" data-next-input="exampleInputPhone2">
+                            <label for="exampleInputmarkaEdit">Марка</label>
+                            <input type="text" class="form-control" id="exampleInputmarkaEdit" name="markaEdit" placeholder="Введите Модель" value="<?php echo $markaEdit ?>" data-next-input="exampleInputmileageEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPhone2">Телефон:</label>
-                            <textarea class="form-control phone-input" rows="1" style="resize: none;" id="exampleInputPhone3" name="PhoneEdit" placeholder="Введите телефон" maxlength="18" data-next-input="exampleInputDescription2"> '.$PhoneEdit.'</textarea>
+                            <label for="exampleInputmileageEdit">Пробег</label>
+                            <input type="text" class="form-control" id="exampleInputmileageEdit" name="mileageEdit" placeholder="Введите Пробег" value="<?php echo $mileageEdit ?>" data-next-input="exampleInputVINEdit">
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputDescription2">Описание:</label>
-                            <textarea class="form-control" id="exampleInputDescription2" name="DescriptionEdit" placeholder="Введите описание" rows="5" maxlength="3494">'.$descriptionEdit.'</textarea>
+                            <label for="exampleInputVINEdit">VIN</label>
+                            <input type="text" class="form-control" id="exampleInputVINEdit" name="VINEdit" placeholder="Введите VIN" value="<?php echo $VINEdit ?>" maxlength="17" data-next-input="exampleInputPhoneEdit">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPhoneEdit">Телефон:</label>
+                            <textarea class="form-control phone-input" rows="1" style="resize: none;" id="exampleInputPhoneEdit" name="PhoneEdit" placeholder="Введите телефон" maxlength="18" data-next-input="exampleInputDescriptionEdit"><?php echo $PhoneEdit ?></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputDescriptionEdit">Описание:</label>
+                            <textarea class="form-control" id="exampleInputDescriptionEdit" name="DescriptionEdit" placeholder="Введите описание" rows="5" maxlength="3494"><?php echo $descriptionEdit ?></textarea>
                         </div>
                     </div>
                     
@@ -343,11 +344,12 @@
                         <button style="background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);  border-color: rgb(0, 0, 0)"; type="submit" name="EditPost" id="EditPostButton" class="btn btn-primary ">Редактировать</button>
                     </div>
                 </form>
-                ';
-                        break; } }'
+                <?php break; } } ?>
             </div>
         </div>
     </div>';
+
+    <?php
 
     $conn->close();
 
@@ -451,9 +453,9 @@
             $marka = $rezult['result_marka'];
             $lead_time = $rezult['result_lead_time'];
 
-            echo
+            ?>
 
-        '<div class="jumbotron jumbotron-fluid mt-3 mb-3">
+        <div class="jumbotron jumbotron-fluid mt-3 mb-3">
         <div class="container bg-light rounded-2" id="container-data">
     
             <div class="row justify-content-center pt-3">
@@ -465,7 +467,7 @@
                                 </a>
                             </div>
                             <div class="col-md-auto">
-                                 <p>' . $Name . " ".  $Patronymic ." ". $Surname . '</p> 
+                                 <p><?php echo $Name . " ".  $Patronymic ." ". $Surname ?></p> 
                             </div>
                         </div>
                     </div>
@@ -492,14 +494,14 @@
             </div>
             <div class="row py-1 justify-content-start">
             <div class="col">
-            <b>' . $gos . '</b>
+            <b><?php echo $gos ?></b>
             </div>
         </div>
         <div class="row justify-content-center py-1">
             <div class="col" style="height: auto;">
             <textarea readonly style="height: auto;     width: 100% ; min-height: 4em;
             background-color: transparent;"
-            >' . $description . '</textarea>
+            ><?php echo $description ?></textarea>
             </div>
         </div>
         <div class="row justify-content-center pb-3 mt-3">
@@ -516,7 +518,7 @@
                         <div class="row justify-content-start mt-2">
                             <div class="col">
                                 <span class="input-group-text" width="50">
-                                    <p>' . $VIN . '</p>
+                                    <p><?php echo $VIN ?></p>
                                 </span>
                             </div>
                         </div>
@@ -529,14 +531,12 @@
                         </div>
                         <div class="row justify-content-start mt-2">
                             <div class="col">
-                                <span class="input-group-text" width="50">' . $Phone . '
-                                    
+                                <span class="input-group-text" width="50"><?php echo $Phone ?>
                                 </span>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             
             <div class="col">
@@ -550,7 +550,7 @@
                         <div class="row justify-content-start mt-2">
                             <div class="col">
                                 <span class="input-group-text" width="50">
-                                    <p>' . $marka . '</p>
+                                    <p><?php echo $marka ?></p>
                                 </span>
                             </div>
                         </div>
@@ -563,7 +563,7 @@
                         </div>
                         <div class="row justify-content-start mt-2">
                             <div class="col">
-                                <span class="input-group-text" width="50">' . $mileage .' 
+                                <span class="input-group-text" width="50"><?php echo $mileage ?> 
                                 </span>
                             </div>
                         </div>
@@ -576,8 +576,7 @@
                         </div>
                         <div class="row justify-content-start mt-2">
                             <div class="col">
-                                <span class="input-group-text">' . $lead_time . '&nbsp;&nbsp;&nbsp;&nbsp;
-                                    
+                                <span class="input-group-text"><?php echo $lead_time ?> &nbsp;&nbsp;&nbsp;&nbsp;
                                 </span>
                             </div>
                         </div>
@@ -586,7 +585,8 @@
             </div>
         </div>
     </div>
-    </div>';
+    </div>
+    <?php
         }
     }
 
@@ -729,7 +729,7 @@
             });
 
             $(document).ready(function() {
-                $('#exampleInputPhone2, #exampleInputPhone3').inputmask("+7 (999) 999-9999"); // Замените на нужный формат
+                $('#exampleInputPhone2, #exampleInputPhoneEdit').inputmask("+7 (999) 999-9999"); // Замените на нужный формат
             });
 
             //Редактирование
@@ -840,12 +840,11 @@
         });
     });
 
-    //Для смешения через Enter по полям
-
+    //Для смещения через Enter по полям
         document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input[data-next-input]');
+            const inputs = document.querySelectorAll('[data-next-input]');
             inputs.forEach((input, index) => {
-                input.addEventListener('keypress', function(event) {
+                input.addEventListener('keydown', function(event) {
                     if (event.key === 'Enter') {
                         event.preventDefault();
                         const nextInputId = input.getAttribute('data-next-input');
